@@ -69,7 +69,10 @@ def login_view(request):
       messages.error(request, f'Niste unijeli ispravne podatke. Pokušajte ponovno.')
       return redirect(reverse('user_login'))
   elif request.method == 'GET':
-    return render(request, 'korisnici/login.html', {'page_title': 'Prijava'})
+    if not request.user.is_authenticated:
+      return render(request, 'korisnici/login.html', {'page_title': 'Prijava'})
+    else:
+      return redirect(reverse('home'))
 
 class KorisniciCreateView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, CreateView):
   form_class = KorisniciForm
