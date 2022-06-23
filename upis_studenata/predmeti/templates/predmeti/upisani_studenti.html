@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Upisani Studenti na {{ predmet }}</h1>
+  <hr />
+  <form class="mb-3" method="GET">
+    <div class="form-group form-check">
+      <input class="form-check-input" type="checkbox" name="status" id="upisan" value="upisan" {% if 'upisan' in oznaceni_filteri %}checked{% endif %}>
+      <label class="form-check-label" for="upisan">Novoupisani</label>
+    </div>
+    <div class="form-group form-check">
+      <input class="form-check-input" type="checkbox" name="status" id="polozen" value="polozen"{% if 'polozen' in oznaceni_filteri %}checked{% endif %}>
+      <label class="form-check-label" for="polozen">Položili</label>
+    </div>
+    <div class="form-group form-check">
+      <input class="form-check-input" type="checkbox" name="status" id="izgubljen_potpis" value="izgubljen_potpis"{% if 'izgubljen_potpis' in oznaceni_filteri %}checked{% endif %}>
+      <label class="form-check-label" for="izgubljen_potpis">Izgubili potpis</label>
+    </div>
+    <button class="btn btn-secondary mt-2" type="Submit">Filtriraj</button>
+  </form>
+  {% if upisani_studenti.count < 1 %}
+  <div class="alert alert-info" role="alert">
+    Nema pronađenih rezultata.
+  </div>
+  {% else %}
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Ime</th>
+          <th scope="col">Prezime</th>
+          <th scope="col">Korisničko ime</th>
+          <th scope="col">E-Mail</th>
+          <th scope="col">Semestar</th>
+          <th scope="col">Studij</th>
+          <th scope="col">Status</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for upis in upisani_studenti %}
+        <tr class="mt-auto mb-auto">
+          <th scope="row">{{ forloop.counter }}</th>
+          <td>{{ upis.student_id.first_name }}</td>
+          <td>{{ upis.student_id.last_name }}</td>
+          <td>{{ upis.student_id.username }}</td>
+          <td>{{ upis.student_id.email }}</td>
+          <td>{% if upis.student_id.status == 'red' %}{{ predmet.sem_redovni }}{% else %}{{ predmet.sem_izvanredni }}{% endif %}</td>
+          <td>{{ upis.student_id.get_status_display }}</td>
+          <td>{{ upis.get_status_display }}</td>
+          <td>
+            {% if upis.status == 'upisan' %}
+            <div class="d-flex gap-1">
+              <form method="POST" action="{% url 'course_polozen' student_id=upis.student_id.id predmet_id=upis.predmet_id.id %}">
+                {% csrf_token %}
+                <button type="Submit" class="btn btn-success" data-bs-toggle="tooltip" title="Označi kao položen">
+                  <i class="bi bi-check2-circle"></i>
+                </button>
+              </form>
+              <form method="POST" action="{% url 'course_izgubljen_potpis' student_id=upis.student_id.id predmet_id=upis.predmet_id.id %}">
+                {% csrf_token %}
+                <button type="Submit" class="btn btn-warning" data-bs-toggle="tooltip" title="Označi da je izgubljen potpis">
+                  <i class="bi bi-hourglass-bottom"></i>
+                </button>
+              </form>
+              {% if user.role == 'Admin' %}
+              <form method="POST" action="{% url 'withdraw_course' student_id=upis.student_id.id predmet_id=upis.predmet_id.id %}">
+                {% csrf_token %}
+                <button type="Submit" class="btn btn-danger" data-bs-toggle="tooltip" title="Ispiši Predmet">
+                  <i class="bi bi-x"></i>
+                </button>
+              </form>
+              {% endif %}
+            </div>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% include 'pagination.html' %}
+{% endif %}
+{% endblock %}

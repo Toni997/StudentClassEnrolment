@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+    {% if user.is_authenticated %}
+    <h1>Dobrodošli na US, {{ user.first_name|default:user.username }}.</h1>
+    {% else %}
+    <h1>Dobrodošli na US.</h1>
+    <h4>Prijavite se <a href="{% url 'user_login' %}">ovdje</a> kako bi mogli koristiti aplikaciju.</h4>
+    {% endif %}
+{% endblock %}

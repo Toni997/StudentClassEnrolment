@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="modal fade" id="delete-predmet-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Potvrda brisanja</h5>
+          <button type="button" class="close btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Jeste li sigurni da želite izbrisati predmet {{ predmet }}?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Otkaži</button>
+          <a href="{% url 'predmeti_delete' pk=predmet.id %}">
+            <button type="button" class="btn btn-danger">Potvrdi</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h1>Detalji Predmeta: {{ predmet }}</h1>
+  <hr />
+  <div>
+    Naziv: {{ predmet.naziv }}
+  </div>
+  <div>
+    Kod: {{ predmet.kod }}
+  </div>
+  <div>
+    Nositelj: {{ predmet.nositelj|default:'Nema nositelja' }}
+  </div>
+  <div>
+    ECTS bodovi: {{ predmet.bodovi }}
+  </div>
+  <div>
+    Semestar (redovni): {{ predmet.sem_redovni }}
+  </div>
+  <div>
+    Semestar (izvanredni): {{ predmet.sem_izvanredni }}
+  </div>
+  <div>
+    Studenti: {{ upisani_studenti.count }}
+  </div>
+  <div class="list-item-action-buttons mt-3">
+    <a class="btn btn-primary" href="{% url 'enrolled_students' pk=predmet.id %}">
+      <i class="bi bi-file-text-fill"></i> Lista Studenata
+    </a>
+    {% if user.role == 'Admin' %}
+    <a class="btn btn-warning" href="{% url 'predmeti_edit' pk=predmet.id %}">
+      <i class="bi bi-pencil-fill"></i> Uredi
+    </a>
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-predmet-modal">
+      <i class="bi bi-trash-fill"></i> Izbriši
+    </button>
+    {% endif %}
+  </div>
+{% endblock %}

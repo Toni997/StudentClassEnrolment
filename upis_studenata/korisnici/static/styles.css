@@ -1,0 +1,3 @@
+.list-group-item:hover > .list-item-action-buttons {
+  visibility: visible !important;
+}

@@ -1,0 +1,197 @@
+[
+{
+  "model": "korisnici.roles",
+  "pk": "Admin",
+  "fields": {}
+},
+{
+  "model": "korisnici.roles",
+  "pk": "Profesor",
+  "fields": {}
+},
+{
+  "model": "korisnici.roles",
+  "pk": "Student",
+  "fields": {}
+},
+{
+  "model": "korisnici.korisnici",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$320000$JuDbIKtv9uGcosZRP3KzpL$CB3gkUDGOuipCK0V0CzVw0FBAb3kJe77KLJrag9Kgjg=",
+    "last_login": "2022-06-23T01:34:36.953Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@admin.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2022-06-03T09:37:16Z",
+    "role": "Admin",
+    "status": "none",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "korisnici.korisnici",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$320000$RkZvf1fejMliihgZJhthba$OlnR43UkYWLirxdfeOkn2iQOr8xuyG7naYxLFD5bZuA=",
+    "last_login": "2022-06-22T21:48:50.454Z",
+    "is_superuser": false,
+    "username": "ibaras1234",
+    "first_name": "Ivo",
+    "last_name": "Baras",
+    "email": "ibaras@unist.hr",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-06-20T00:15:57.892Z",
+    "role": "Profesor",
+    "status": "none",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "korisnici.korisnici",
+  "pk": 6,
+  "fields": {
+    "password": "pbkdf2_sha256$320000$VP0qGZ99GHv3hEWAbxVHIW$iSiYjOmBaxknaaYFiLURpMQ9NP6XVgOKVdCPi1SMsoY=",
+    "last_login": "2022-06-20T17:50:09.099Z",
+    "is_superuser": false,
+    "username": "ngrgic7689",
+    "first_name": "Nikola",
+    "last_name": "Grgić",
+    "email": "ngrgic@unist.hr",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-06-20T17:39:22.533Z",
+    "role": "Profesor",
+    "status": "none",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "korisnici.korisnici",
+  "pk": 7,
+  "fields": {
+    "password": "pbkdf2_sha256$320000$E3LtkrBFKN1CJEKPSJXyHF$Xg4Jykrk37CHHCbRfnu+uOZK2Z2dUA0rSdNj8AOP59E=",
+    "last_login": "2022-06-22T22:11:00.760Z",
+    "is_superuser": false,
+    "username": "tk4832",
+    "first_name": "Toni",
+    "last_name": "Kazinoti",
+    "email": "tk48322@unist.hr",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-06-21T19:32:41.992Z",
+    "role": "Student",
+    "status": "red",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "korisnici.korisnici",
+  "pk": 10,
+  "fields": {
+    "password": "pbkdf2_sha256$320000$WmU4ywm7OfNWMUENDIQjie$mResXCFH3x6M/Li9tSzg01kGKvt8GENcJP648F99UgE=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "icerta9876",
+    "first_name": "Ivo",
+    "last_name": "Certa",
+    "email": "icerta9876@unist.hr",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-06-22T02:07:38.796Z",
+    "role": "Student",
+    "status": "izv",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "korisnici.korisnici",
+  "pk": 11,
+  "fields": {
+    "password": "pbkdf2_sha256$320000$anvz63BSrcBGWEjWDhaHQE$8yHbkexPifpZzRGyxVIH27HSiEYjlUVqpVIEj5NwH/0=",
+    "last_login": "2022-06-22T22:03:18.090Z",
+    "is_superuser": false,
+    "username": "ikedzo2345",
+    "first_name": "Ivan",
+    "last_name": "Kedžo",
+    "email": "ikedzo@unist.hr",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-06-22T02:27:30.088Z",
+    "role": "Profesor",
+    "status": "none",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "korisnici.korisnici",
+  "pk": 12,
+  "fields": {
+    "password": "pbkdf2_sha256$320000$ARriE5jkZGNZGsOxzpBslk$tDyaABNIN2xyHeQG/jPMIhjf1cmpMj+jJzGe3ZjthaE=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "vputin6789",
+    "first_name": "Vladimir",
+    "last_name": "Putin",
+    "email": "vputin67890@unist.hr",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-06-22T02:40:43.698Z",
+    "role": "Student",
+    "status": "red",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "korisnici.korisnici",
+  "pk": 13,
+  "fields": {
+    "password": "pbkdf2_sha256$320000$zaxoFtgTLemUKDkw09EXwJ$qMoKSNuVMSaGQSzAOTD5G4gO98IJpg5awKXhgEhFzwg=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "dtrump3456",
+    "first_name": "Donald",
+    "last_name": "Trump",
+    "email": "dtrump34567@unist.hr",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-06-22T02:41:29.697Z",
+    "role": "Student",
+    "status": "red",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "korisnici.korisnici",
+  "pk": 15,
+  "fields": {
+    "password": "pbkdf2_sha256$320000$0ClxwQmqgrZymFDB9yOIdR$U7jdAUvOPZEYuKWnYHEc7Jq/t1AIXLo8q1KiJyJlVTo=",
+    "last_login": "2022-06-23T01:42:32.332Z",
+    "is_superuser": false,
+    "username": "lizard1234",
+    "first_name": "Mark",
+    "last_name": "Zuckerberg",
+    "email": "mzucc@unist.hr",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-06-23T01:39:14.399Z",
+    "role": "Profesor",
+    "status": "none",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]

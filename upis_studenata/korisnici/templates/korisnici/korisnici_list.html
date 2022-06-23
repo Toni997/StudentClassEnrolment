@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Popis Korisnika (Uloga: {{ searched_role }})</h1>
+  <hr />
+  <div class="list-group">
+    {% for korisnik in korisnici %}
+    <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+      <a class="link-secondary" href="{% url 'korisnici_details' pk=korisnik.id %}">
+        {{ korisnik }}
+      </a>
+      <div class="list-item-action-buttons invisible">
+        {% if korisnik.role == "Student" %}
+        <a class="btn" data-bs-toggle="tooltip" title="Upisni List" href="{% url 'upisni_list' pk=korisnik.id %}">
+          <i class="bi bi-file-text-fill"></i>
+        </a>
+        {% endif %}
+        {% if korisnik.role == "Profesor" %}
+        <a class="btn" data-bs-toggle="tooltip" title="Pogledaj predmete koje predaje" href="{% url 'predmeti_list_nositelj' pk=korisnik.id %}">
+          <i class="bi bi-file-text-fill"></i>
+        </a>
+        {% endif %}
+        <a class="btn" data-bs-toggle="tooltip" title="Uredi" href="{% url 'korisnici_edit' pk=korisnik.id %}">
+          <i class="bi bi-pencil-fill"></i>
+        </a>
+        {% comment %} <a id="{{ korisnik.id }}" data-predmet="{{ predmet }}" href="{% url 'korisnici_delete' pk=korisnik.id %}" onclick="openConfirmWithId(this)" data-bs-toggle="tooltip" title="Izbriši" type="button" class="btn delete-button">
+          <i class="bi bi-trash-fill"></i>
+        </a> {% endcomment %}
+      </div>
+    </li>
+    {% empty %}
+    <div class="alert alert-info" role="alert">
+      Nije pronađen ni jedan rezultat.
+    </div>
+    {% endfor %}
+  </div>
+
+  {% include 'pagination.html' %}
+{% endblock %}

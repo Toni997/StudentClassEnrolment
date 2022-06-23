@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="modal fade" id="delete-korisnik-modal" tabindex="-1" role="dialog" aria-labelledby="delete korisnik" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Potvrda brisanja</h5>
+          <button type="button" class="close btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Jeste li sigurni da želite izbrisati korisnika {{ korisnik }}?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Otkaži</button>
+          <a href="{% url 'korisnici_delete' pk=korisnik.id %}">
+            <button type="button" class="btn btn-danger">Potvrdi</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h1>Detalji Korisnika: {{ korisnik }}</h1>
+  <hr />
+  <div>
+    Uloga: {{ korisnik.role }}{% if korisnik.role == "Student" %} ({{ korisnik.get_status_display }}){% endif %}</small>
+  </div>
+  <div>
+    Korisničko ime: {{ korisnik.username }}
+  </div>
+  <div>
+    E-Mail: {{ korisnik.email }}
+  </div>
+  <div>
+    Ime: {{ korisnik.first_name }}
+  </div>
+  <div>
+    Prezime: {{ korisnik.last_name }}
+  </div>
+  {% if korisnik.role == 'Student' %}
+  <div>
+    Upisani Predmeti: {{ predmeti_count }}
+  </div>
+  {% elif korisnik.role == 'Profesor' %}
+  <div>
+    Nositeljski Predmeti: {{ predmeti_count }}
+  </div>
+  {% endif %}
+  <div class="list-item-action-buttons mt-3">
+    {% if korisnik.role == 'Student' %}
+    <a class="btn btn-primary" href="{% url 'upisni_list' pk=korisnik.id %}">
+      <i class="bi bi-file-text-fill"></i> Upisni List
+    </a>
+    {% elif korisnik.role == 'Profesor' %}
+    <a class="btn btn-primary" href="{% url 'predmeti_list_nositelj' pk=korisnik.id %}">
+      <i class="bi bi-file-text-fill"></i> Popis Predmeta
+    </a>
+    {% endif %}
+    <a class="btn btn-warning" href="{% url 'korisnici_edit' pk=korisnik.id %}">
+      <i class="bi bi-pencil-fill"></i> Uredi
+    </a>
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-korisnik-modal">
+      <i class="bi bi-trash-fill"></i> Izbriši
+    </button>
+  </div>
+  <div class="mt-2">
+    <a class="btn btn-secondary" href="{% url 'admin_change_password' user_id=korisnik.id %}">
+      <i class="bi bi-key-fill"></i> Promijeni Lozinku
+    </a>
+  </div>
+{% endblock %}

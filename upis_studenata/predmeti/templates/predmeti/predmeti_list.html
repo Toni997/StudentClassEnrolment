@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Popis Predmeta</h1>
+  <hr />
+  <div class="list-group">
+    {% for predmet in predmeti %}
+    <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+      <a class="link-secondary" href="{% url 'predmeti_details' pk=predmet.id %}">
+        {{ predmet }}
+      </a>
+      <div class="list-item-action-buttons invisible">
+        <a class="btn" data-bs-toggle="tooltip" title="Upisani Studenti" href="{% url 'enrolled_students' pk=predmet.id %}">
+          <i class="bi bi-people-fill"></i>
+        </a>
+        <a class="btn" data-bs-toggle="tooltip" title="Uredi" href="{% url 'predmeti_edit' pk=predmet.id %}">
+          <i class="bi bi-pencil-fill"></i>
+        </a>
+        {% comment %} <a id="{{ predmet.id }}" href="{% url 'predmeti_delete' pk=predmet.id %}" data-predmet="{{ predmet }}" data-bs-toggle="tooltip" title="Izbriši" class="btn delete-button">
+          <i class="bi bi-trash-fill"></i>
+        </a> {% endcomment %}
+      </div>
+    </li>
+    {% endfor %}
+  </div>
+  {% include 'pagination.html' %}
+  {% endblock %}
+  

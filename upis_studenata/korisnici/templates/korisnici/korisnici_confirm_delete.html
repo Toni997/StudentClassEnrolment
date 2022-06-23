@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+Brisanje korisnika {{ korisnik }}...
+
+<form id="delete-form" method="POST">
+  {% csrf_token %}
+</form>
+
+<script>
+  document.querySelector('#delete-form').submit()
+</script>
+{% endblock %}

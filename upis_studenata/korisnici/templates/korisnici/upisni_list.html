@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Upisni List za {{ korisnik.first_name }} {{ korisnik.last_name }} ({{ korisnik.username }})</h1>
+<hr />
+{% if korisnik.status == 'red' %}
+{% regroup upisani_predmeti by predmet_id.sem_redovni as semestri %}
+{% else %}
+{% regroup upisani_predmeti by predmet_id.sem_izvanredni as semestri %}
+{% endif %}
+<div class="row gap-3">
+  <div class="list-container col-md" style="max-height:500px;overflow:auto;">
+    <h3 class="pb-2">Neupisani Predmeti</h3>
+    <ul class="list-group">
+      {% for predmet in predmeti %}
+      <li class="list-group-item d-flex align-items-center gap-2">
+        <form method="POST" action="{% url 'enroll_course' student_id=korisnik.id predmet_id=predmet.id %}">
+          {% csrf_token %}
+          <button type="Submit" class="btn" data-bs-toggle="tooltip" title="Upiši Predmet">
+            <i class="bi bi-plus-circle-fill"></i>
+          </button>
+        </form>
+        <span class="">{{ predmet }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="list-container col-md" style="max-height:500px;overflow:auto;">
+    <h3 class="pb-2">Upisani Predmeti</h3>
+    <ul class="list-group">
+      {% if upisani_predmeti.count < 1 %}
+      <div class="alert alert-info" role="alert">
+        Ovdje će se prikazati predmeti jednom kada ih počnete upisivati.
+      </div>
+      {% endif %}
+      {% for semestar in semestri %}
+      <ul class="list-group mb-2"><b>Semestar {{ semestar.grouper }}</b>
+        {% for upis in semestar.list %}
+        <li class="list-group-item d-flex align-items-center gap-2 justify-content-between">
+          <span>{{ upis.predmet_id }} - <b>{{ upis.get_status_display }}</b></span>
+          {% if upis.status == 'upisan' %}
+          <div class="d-flex gap-1">
+            {% if user.role == 'Admin' %}
+            <form method="POST" action="{% url 'course_polozen' student_id=upis.student_id.id predmet_id=upis.predmet_id.id %}">
+              {% csrf_token %}
+              <button type="Submit" class="btn btn-success" data-bs-toggle="tooltip" title="Označi kao položen">
+                <i class="bi bi-check2-circle"></i>
+              </button>
+            </form>
+            <form method="POST" action="{% url 'course_izgubljen_potpis' student_id=upis.student_id.id predmet_id=upis.predmet_id.id %}">
+              {% csrf_token %}
+              <button type="Submit" class="btn btn-warning" data-bs-toggle="tooltip" title="Označi da je izgubljen potpis">
+                <i class="bi bi-hourglass-bottom"></i>
+              </button>
+            </form>
+            {% endif %}
+            <form method="POST" action="{% url 'withdraw_course' student_id=upis.student_id.id predmet_id=upis.predmet_id.id %}">
+              {% csrf_token %}
+              <button type="Submit" class="btn btn-danger" data-bs-toggle="tooltip" title="Ispiši Predmet">
+                <i class="bi bi-x"></i>
+              </button>
+            </form>
+          </div>
+          {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

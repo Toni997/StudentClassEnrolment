@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+  {% if form.instance.id %}
+    <h1 class>Uredi Predmet: {{ form.instance }}</h1>
+  {% else %}
+    <h1 class>Dodaj Predmet</h1>
+  {% endif %}
+    <hr />
+    <form method="POST">
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="form-group mb-3">
+          {{ field.label_tag }}
+          {{ field }}
+          {% for error in field.errors %}
+          <div class="invalid-feedback d-block">
+            {{ error }}
+          </div>
+          {% endfor %}
+        </div>
+      {% endfor %}
+      <button type="submit" class="btn btn-primary">Spremi</button>
+    </form>
+{% endblock %}
